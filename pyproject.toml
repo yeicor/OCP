@@ -1,0 +1,52 @@
+[build-system]
+requires = ["scikit-build-core>=0.10.7"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "OCP"
+version = "7.8.1.2"
+description = "Python wrapper for OCCT generated using pywrap."
+license = {file = "LICENSE"}
+# keywords = []
+# classifiers = []
+
+# Disallow 3.9.0 because of https://github.com/python/cpython/pull/22670
+requires-python = ">=3.7, <3.13"
+
+dependencies = [
+    'importlib_metadata>=1.4; python_version < "3.10"'
+]
+
+[tool.scikit-build]
+cmake.version = "CMakeLists.txt"
+
+cmake.build-type = "Release"
+
+logging.level = "DEBUG"
+build.verbose = true
+
+#sdist.include = ["src/opentimelineio/adapters/builtin_adapters.plugin_manifest.json"]
+
+wheel.packages = ["OCP"]
+wheel.install-dir = "OCP"
+
+# [[tool.scikit-build.generate]]
+# path = "opentimelineio/__init__.py"
+# template-path = "src/py-opentimelineio/opentimelineio/__init__.py"
+
+# [[tool.scikit-build.generate]]
+# path = "opentimelineview/__init__.py"
+# template-path = "src/opentimelineview/__init__.py"
+
+# [tool.scikit-build.cmake.define]
+# OTIO_PYTHON_INSTALL = "ON"
+# OTIO_CXX_INSTALL = "OFF"
+# OTIO_SHARED_LIBS = "OFF"
+# BUILD_TESTING = "OFF"
+# OTIO_INSTALL_PYTHON_MODULES = "OFF"
+
+[tool.cibuildwheel.linux]
+archs = ["x86_64", "aarch64"]
+
+[tool.cibuildwheel.windows]
+archs = ["AMD64"]
